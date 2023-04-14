@@ -2,7 +2,7 @@ import React from 'react'
 const shortid = require('shortid')
 
 function BookingDetails(props) {
-
+  //this component shows the last booking details on the right side panel of the page.
   return (
     <div className='mt-5 mx-4 mb-5'>
       {props.lastBookingDetails.movie===''

@@ -1,7 +1,7 @@
 import React ,{useState,useEffect}from 'react'
 import {movies, slots ,seats} from './data'
 import BookingDetails from './BookingDetails'
-import { getBookingDetailsApi, postBookingDetailsApi } from './api'
+import { getBookingDetailsApi, sendBookingDetailsApi } from './api'
 const shortid = require('shortid')
 
 function BookShow() {
@@ -10,6 +10,8 @@ function BookShow() {
     seats.map((item,i)=>{
         seatsData[item] = 0
     })
+
+    //set initial values to the selected values in the previous session, which are stored in the local storage.
     let initialSelectedSlotIndex = localStorage.getItem('selectedSlotIndex')
     if(initialSelectedSlotIndex!==null){
         initialSelectedSlotIndex = Number(initialSelectedSlotIndex) 
@@ -28,24 +30,27 @@ function BookShow() {
         initialSelectedSeats = seatsData
     }
 
+    //this function is called each time when the user selects any of the value and stores those selected values in the local storage//
     const addToLocalStorage = (localStorageKey,newValue)=>{
         localStorage.setItem(localStorageKey,newValue)
     }
+
     const [selectedSeats, setSelectedSeats] = useState(initialSelectedSeats)
     const [selectedMovieIndex, setSelectedMovieIndex] = useState(initialSelectedMovieIndex);  
     const [selectedSlotIndex, setSelectedSlotIndex] = useState(initialSelectedSlotIndex); 
     const [lastBookingDetails, setLastBookingDetails] = useState({movie:'',slot:'',seats:{}})
     
-    const MovieClick = (index,movie) => {
+    const onMovieClick = (index,movie) => {
         setSelectedMovieIndex(index);
         addToLocalStorage('selectedMovieIndex',index)
     };
-    const SlotClick = (index,slot) => {
+    const onSlotClick = (index,slot) => {
         setSelectedSlotIndex(index);
         addToLocalStorage('selectedSlotIndex',index)
     }
 
-    const getSeatNumbers= (event, id) => {
+    const onSeatChange= (event, id) => {
+        //this function checks that the max allowed seat limit is 20 and sets the selectedSeats as per user input//
         let numOfSeats = Number(event.target.value);
         if(numOfSeats>20){numOfSeats=20}
         let temp2 = {...selectedSeats}
@@ -53,10 +58,9 @@ function BookShow() {
         setSelectedSeats(temp2)
         addToLocalStorage('selectedSeats',JSON.stringify(temp2))
     }
-
-    const sendDataFormat ={movie:movies[selectedMovieIndex],seats:selectedSeats,slot:slots[selectedSlotIndex]}
     
     const sendDataToServerFunc= (data)=>{
+         //this function validates whether the user has selected all fields and then sends data to server//
         let isNumOfSeatsValid = false
         for(const key in data.seats){
            if(data.seats[key]===0) {
@@ -66,7 +70,6 @@ function BookShow() {
             break
            }
         }
-        let isDataValid = true
         let alertMessage = ''
         if(data.movie===''){
             alertMessage='Please! Select a Movie'
@@ -78,7 +81,9 @@ function BookShow() {
             alertMessage='Please! Select the Seats.'
         }
         if(alertMessage === ''){
-            postBookingDetailsApi({...data})
+            //this function is called when the user clicks 'Book now' button and sends post request to server with the booking details,
+            //along with that it also sets the last booking details received as a response to this post request//
+            sendBookingDetailsApi({...data})
             .then((res )=>{
                 if(res   &&  res.movie && res.slot && res.seats){
                     console.log('res',res)
@@ -94,6 +99,7 @@ function BookShow() {
     }
    
     useEffect(() => {
+        //this function is called when the page mounts and bring the last booking details from the server//
         getBookingDetailsApi()
         .then((res)=>{
             if(res  &&  res.movie && res.slot && res.seats){
@@ -126,7 +132,7 @@ function BookShow() {
                                 return(
                                        <div className={selectedMovieIndex === index ?'movie-column-selected':'movie-column'}
 
-                                            onClick={()=> {MovieClick(index,movie)}}
+                                            onClick={()=> {onMovieClick(index,movie)}}
                                             key ={shortid.generate()}
                                         >
                                             {movie}
@@ -141,7 +147,7 @@ function BookShow() {
                             {slots.map((slot,index)=>{
                                 return(
                                     <div className={selectedSlotIndex === index ? 'slot-column-selected':'slot-column'}
-                                        onClick={()=>{SlotClick(index,slot)}}  key ={shortid.generate()}
+                                        onClick={()=>{onSlotClick(index,slot)}}  key ={shortid.generate()}
                                         
                                     >
                                         {slot}
@@ -163,7 +169,7 @@ function BookShow() {
                                         <div className='p-2'>Type {seat} :  </div>
                                         <div className='p-2'>
                                             <input  type="number"  min="0" max="20" value= {selectedSeats[seat]}
-                                                onChange={(event)=>{getSeatNumbers(event,seat)}}                                                       
+                                                onChange={(event)=>{onSeatChange(event,seat)}}                                                       
                                             />
                                         </div>
                                         
@@ -174,7 +180,10 @@ function BookShow() {
                     </div>
                     <div >
                         <button className='button-62  mx-5'
-                                onClick={() => {sendDataToServerFunc(sendDataFormat)}}>
+                                onClick={() => {
+                                    sendDataToServerFunc({movie:movies[selectedMovieIndex],seats:selectedSeats,slot:slots[selectedSlotIndex]})
+                                }}
+                        >
                             Book Now
                         </button>
                     </div>

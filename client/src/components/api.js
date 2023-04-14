@@ -14,7 +14,7 @@ export const getBookingDetailsApi =()=>{
     })
 }
 
-export const postBookingDetailsApi  = (data={})=>{
+export const sendBookingDetailsApi  = (data={})=>{
     return fetch('/showbuzz/booking', {
         method: 'POST',
         body: JSON.stringify({...data}),

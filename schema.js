@@ -1,5 +1,6 @@
 const { Schema } = require('mongoose');
 
+// this defines the schema for database//
 const bookMovieSchema = new Schema(
     {
         movie: Schema.Types.String,
