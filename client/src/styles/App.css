@@ -1,0 +1,178 @@
+.movie-column, .seat-column, .slot-column {
+    display: inline-block;
+    margin: 10px;
+    color: rgb(0, 0, 0);
+    border: 2px rgb(0, 0, 0) ridge;
+    padding: 20px 15px;
+    line-height: 1px;
+    border-radius: 5px;
+    box-shadow: 5px 5px 5px 5px aliceblue;
+    background-color: #f9ffea;
+    font-size: 17px;
+    font-family: cursive;
+   
+}
+.movie-column:hover{
+    box-shadow: 2px 2px 2px 2px #d78bff;
+    /* background-color: #EF4765; */
+}
+.movie-column:active{
+    background-color: #EF4765;
+}
+.seat-column:hover{
+    box-shadow: 2px 2px 2px 2px #d78bff;
+}
+.seat-column:active{
+    background-color: #EF4765;
+}
+.slot-column:hover{
+    box-shadow: 2px 2px 2px 2px #d78bff;
+}
+.slot-column:active{
+    background-color: #EF4765;
+}
+
+.movie-row, .seat-row, .slot-row {
+    border-radius: 10px;
+    border: 1px black ridge;
+    padding: 15px;
+    margin-bottom: 3vh;
+
+    ;
+}
+
+.seat-column {
+    min-width: 100px;
+    text-align: center;
+    padding-bottom: 15px;
+    ;
+}
+
+.book-button button {
+    text-align: center;
+    border-radius: 10px;
+    font-size: 1em;
+    color: white;
+    background-color: rgb(44, 209, 88);
+    background: -moz-linear-gradient(233deg, rgba(44, 209, 88, 1) 0%, rgba(44, 108, 224, 1) 100%);
+    background: -webkit-linear-gradient(233deg, rgba(44, 209, 88, 1) 0%, rgba(44, 108, 224, 1) 100%);
+    background: linear-gradient(233deg, rgba(44, 209, 88, 1) 0%, rgba(44, 108, 224, 1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#2cd158", endColorstr="#2c6ce0", GradientType=1);
+    padding: 5px 15px;
+    font-weight: 500;
+}
+
+.movie-column-selected, .seat-column-selected, .slot-column-selected {
+    display: inline-block;
+    margin: 10px;
+    color: rgb(0, 0, 0);
+    border: 2px rgb(0, 0, 0) ridge;
+    padding: 20px 15px;
+    line-height: 1px;
+    border-radius: 5px;
+    box-shadow: 5px 5px 5px 5px aliceblue;
+    
+    font-size: 17px;
+    font-family: cursive;
+    background-color: rgb(211, 115, 115);
+    /* box-shadow: 0 0 5px 5px; */
+}
+
+input {
+    width: 50px;
+    border-color: rgb(196, 196, 196);
+    border-width: 1px;
+}
+
+.last-order {
+    border-radius: 10px;
+    border: 1px black ridge;
+    padding: 10px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    ;
+}
+
+
+/* CSS */
+.button-62 {
+  background: linear-gradient(to bottom right, #EF4765, #FF9A5A);
+  border: 0;
+  border-radius: 12px;
+  color: #FFFFFF;
+  cursor: pointer;
+  display: inline-block;
+  font-family: -apple-system,system-ui,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 2.5;
+  outline: transparent;
+  padding: 0 1rem;
+  text-align: center;
+  text-decoration: none;
+  transition: box-shadow .2s ease-in-out;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  white-space: nowrap;
+}
+
+.button-62:not([disabled]):focus {
+  box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(239, 71, 101, 0.5), .125rem .125rem 1rem rgba(255, 154, 90, 0.5);
+}
+
+.button-62:not([disabled]):hover {
+  box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(239, 71, 101, 0.5), .125rem .125rem 1rem rgba(255, 154, 90, 0.5);
+}
+
+.title{
+    
+    background-color:#fde9c9;
+   
+    font-family:cursive;
+    word-spacing:03vh;
+    border-radius: 5px;
+    
+    text-shadow: 5px 5px #f4fab3;
+}
+.logo{
+    background-color: #e6f99d;
+    position:fixed;
+    top:0;
+}
+.heading{
+    
+    font-size: 40px;
+    font-family: fantasy;
+    background-color: #f4fab3;
+    text-shadow: 5px 5px #86ee60;
+    letter-spacing:3px ;
+}
+.body-box{
+    
+    
+    background-color: #f9ffea;
+}
+.sub-heading{
+    font-family:cursive;
+    letter-spacing: 1px;
+    text-shadow: 5px 5px #f4fab3;
+    margin: 5px;
+
+    
+}
+.booking-details-column{
+    border: 2px rgb(0, 0, 0) ridge;
+    padding:15px;
+    border-radius: 5px;
+    box-shadow: 5px 5px 5px 5px aliceblue;
+    background-color: #f9ffea;
+    font-family: cursive;
+     
+}
+.booking-column{
+    font-family: cursive;
+    font-size:24px;
+
+
+}
