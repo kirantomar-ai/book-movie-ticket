@@ -1,4 +1,3 @@
-import { getLastBookingDetails, saveBookingDetails } from "./requestHandlers";
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
@@ -7,6 +6,8 @@ const path = require('path')
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 const { connection } = require("./connector");
+// import { getLastBookingDetails, saveBookingDetails } from "./requestHandlers";
+const requestHandlers = require('./requestHandlers')
 const cors = require('cors')
 app.use(cors())
 
@@ -23,13 +24,13 @@ app.use('/showbuzz',bookTicketsRoutes)
 
 bookTicketsRoutes.route('/').get((req,res)=>{
   // console.log("get request received")
-  getLastBookingDetails(res);
+  requestHandlers.getLastBookingDetails(res);
 })
 
 bookTicketsRoutes.route('/booking').post((req,res)=>{
   let dataReceived = {...req.body}
     // console.log('post  request received.', dataReceived)
-    saveBookingDetails(dataReceived,res)
+    requestHandlers.saveBookingDetails(dataReceived,res)
 })
 
 app.listen(port, () => console.log(`App listening on port ${port}!`));
