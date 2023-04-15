@@ -1,0 +1,1 @@
+# book-movie-ticket is a nodeJs application. The frontend is created using ReactJs while in backend ExpressJs is used.The data is stored Mongodb cloud database according to schema designed using Mongoose library.This application provides an interface to the user to book movie tickets and also show the last booking details.
