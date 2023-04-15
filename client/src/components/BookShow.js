@@ -59,6 +59,7 @@ function BookShow() {
         addToLocalStorage('selectedSeats',JSON.stringify(temp2))
     }
     
+    
     const sendDataToServerFunc= (data)=>{
          //this function validates whether the user has selected all fields and then sends data to server//
         let isNumOfSeatsValid = false
@@ -87,7 +88,10 @@ function BookShow() {
             .then((res )=>{
                 if(res   &&  res.movie && res.slot && res.seats){
                     console.log('res',res)
-                    setLastBookingDetails(res)  
+                    setLastBookingDetails(res)
+                    setSelectedMovieIndex(null)
+                    setSelectedSlotIndex(null)
+                    setSelectedSeats(seatsData)  
                 }
             })
             .catch(error => console.log('Error:', error)); 
