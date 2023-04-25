@@ -13,17 +13,17 @@ function BookShow() {
 
     //set initial values to the selected values in the previous session, which are stored in the local storage.
     let initialSelectedSlotIndex = localStorage.getItem('selectedSlotIndex')
-    if(initialSelectedSlotIndex!==null){
+    if(initialSelectedSlotIndex!==null && initialSelectedSlotIndex!==""){
         initialSelectedSlotIndex = Number(initialSelectedSlotIndex) 
     }
      
     let initialSelectedMovieIndex =localStorage.getItem('selectedMovieIndex')
-    if(initialSelectedMovieIndex!==null){
+    if(initialSelectedMovieIndex!==null  && initialSelectedMovieIndex!==""){
         initialSelectedMovieIndex = Number(initialSelectedMovieIndex) 
     }
     
     let initialSelectedSeats =localStorage.getItem('selectedSeats')
-    if(initialSelectedSeats!==null){
+    if(initialSelectedSeats!==null  ){
         initialSelectedSeats = JSON.parse(initialSelectedSeats)
     }
     else{
@@ -72,10 +72,10 @@ function BookShow() {
            }
         }
         let alertMessage = ''
-        if(data.movie===''){
+        if( !data.movie || data.movie===''){
             alertMessage='Please! Select a Movie'
         }
-        else if(data.slot===''){
+        else if( !data.slot || data.slot===''){
             alertMessage='Please! Select a Time Slot'
         }
         else if(isNumOfSeatsValid===false){
@@ -87,11 +87,13 @@ function BookShow() {
             sendBookingDetailsApi({...data})
             .then((res )=>{
                 if(res   &&  res.movie && res.slot && res.seats){
-                    console.log('res',res)
                     setLastBookingDetails(res)
                     setSelectedMovieIndex(null)
                     setSelectedSlotIndex(null)
-                    setSelectedSeats(seatsData)  
+                    setSelectedSeats(seatsData)
+                    addToLocalStorage('selectedMovieIndex',"")
+                    addToLocalStorage('selectedSlotIndex',"")
+                    addToLocalStorage('selectedSeats',JSON.stringify(seatsData))  
                 }
             })
             .catch(error => console.log('Error:', error)); 
@@ -107,7 +109,6 @@ function BookShow() {
         getBookingDetailsApi()
         .then((res)=>{
             if(res  &&  res.movie && res.slot && res.seats){
-                // console.log('movie', res)
                 setLastBookingDetails(res)
             }
         }) 
